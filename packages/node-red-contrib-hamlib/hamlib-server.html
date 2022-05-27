@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('hamlib-server', {
+        category: 'config',
+        defaults: {
+            name: { value: '' },
+            host: { value: 'localhost', required: true },
+            port: { value: 4532, required: true }
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="hamlib-server">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag">
+            </i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+
+    <div id="host">
+        <div class="form-row">
+            <label for="node-config-input-host"><i class="fa fa-sign-in">
+                </i> Host</label>
+            <input type="text" id="node-config-input-host">
+        </div>
+        <div class="form-row">
+            <label for="node-config-input-port"><i class="fa fa-sign-in">
+                </i> Port</label>
+            <input type="text" id="node-config-input-port">
+        </div>
+    </div>
+</script>

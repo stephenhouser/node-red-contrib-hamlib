@@ -1,0 +1,20 @@
+
+up-example:
+	docker-compose -f docker-compose-example.yml up
+
+up-linked:
+	docker-compose -f docker-compose-linked.yml up
+
+up-clean: clean
+	mkdir -p ./data-clean
+	#cp ../example/flows.json data-clean/
+	#(cd data-clean && npm i node-red-dashboard)
+	docker-compose -f docker-compose-clean.yml up
+
+clean:
+	rm -rf ./data
+
+
+
+rig:
+	rigctld -vvv -S # -Z --vfo -r 1
