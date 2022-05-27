@@ -3,26 +3,25 @@
 	"version": "0.1.0",
 	"description": "Hamlib Radio Control and Monitoring Nodes",
 	"keywords": [
-	  "node-red",
-	  "hamlib"
+		"node-red",
+		"hamlib"
 	],
 	"author": "Stephen Houser, N1SH <stephenhouser@gmail.com>",
 	"repository": "github:stephenhouser/node-red-contrib-hamlib",
 	"license": "MIT",
 	"homepage": "https://github.com/stephenhouser/node-red-contrib-hamlib",
 	"bugs": {
-	  "url": "https://github.com/stephenhouser/node-red-contrib-hamlib/issues"
+		"url": "https://github.com/stephenhouser/node-red-contrib-hamlib/issues"
 	},
 	"main": "index.js",
 	"scripts": {
-	  "test": "echo \"Error: no test specified\" && exit 1",
-	  "lint": "npx eslint --fix . || exit 0"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "npx eslint --fix . || exit 0"
 	},
 	"node-red": {
-	  "nodes": {
-		"hamlib-request": "hamlib-request.js",
-		"hamlib-server": "hamlib-server.js"
-	  }
+		"nodes": {
+			"hamlib-request": "hamlib-request.js",
+			"hamlib-server": "hamlib-server.js"
+		}
 	}
-  }
-  
+}
