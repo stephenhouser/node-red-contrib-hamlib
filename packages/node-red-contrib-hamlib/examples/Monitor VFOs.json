@@ -1,0 +1,305 @@
+[
+    {
+        "id": "34356dd01a8ffa71",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a95c27ee91696d54",
+        "type": "ui_text",
+        "z": "34356dd01a8ffa71",
+        "group": "1681129a4e3bc0da",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "name": "FreqA",
+        "label": "VFOA",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 870,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4ef717c8969d77c3",
+        "type": "inject",
+        "z": "34356dd01a8ffa71",
+        "name": "Band Up",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "BandUp",
+        "payload": "G VFOA BAND_UP",
+        "payloadType": "str",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "ce9cd72bff9ad1c2"
+            ]
+        ]
+    },
+    {
+        "id": "ac545d2ab4e9f56e",
+        "type": "inject",
+        "z": "34356dd01a8ffa71",
+        "name": "BandDown",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "BandDown",
+        "payload": "G VFOA BAND_DOWN",
+        "payloadType": "str",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "ce9cd72bff9ad1c2"
+            ]
+        ]
+    },
+    {
+        "id": "15f827e8d09535a5",
+        "type": "switch",
+        "z": "34356dd01a8ffa71",
+        "name": "",
+        "property": "request",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "f VFOA",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "m VFOA",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "f VFOB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "m VFOB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 590,
+        "y": 220,
+        "wires": [
+            [
+                "a95c27ee91696d54"
+            ],
+            [
+                "489e6139bf4a64fc"
+            ],
+            [
+                "114b2948a595ccf0"
+            ],
+            [
+                "21b437c8ea06ef86"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "114b2948a595ccf0",
+        "type": "ui_text",
+        "z": "34356dd01a8ffa71",
+        "group": "1681129a4e3bc0da",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "name": "FreqB",
+        "label": "VFOB",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 870,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "489e6139bf4a64fc",
+        "type": "ui_text",
+        "z": "34356dd01a8ffa71",
+        "group": "1681129a4e3bc0da",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ModeA",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "21b437c8ea06ef86",
+        "type": "ui_text",
+        "z": "34356dd01a8ffa71",
+        "group": "1681129a4e3bc0da",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ModeB",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 880,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6cd3522c20141221",
+        "type": "inject",
+        "z": "34356dd01a8ffa71",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"f VFOA\",\"m VFOA\"]",
+        "payloadType": "json",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "ce9cd72bff9ad1c2"
+            ]
+        ]
+    },
+    {
+        "id": "b1494c8a98e65437",
+        "type": "inject",
+        "z": "34356dd01a8ffa71",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"f VFOB\",\"m VFOB\"]",
+        "payloadType": "json",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "ce9cd72bff9ad1c2"
+            ]
+        ]
+    },
+    {
+        "id": "ce9cd72bff9ad1c2",
+        "type": "hamlib-request",
+        "z": "34356dd01a8ffa71",
+        "name": "",
+        "server": "872a509c5d98d73a",
+        "x": 380,
+        "y": 220,
+        "wires": [
+            [
+                "15f827e8d09535a5",
+                "3c2aaa370a5e8485"
+            ]
+        ]
+    },
+    {
+        "id": "3c2aaa370a5e8485",
+        "type": "debug",
+        "z": "34356dd01a8ffa71",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "1681129a4e3bc0da",
+        "type": "ui_group",
+        "name": "Rig",
+        "tab": "2f9828e9227876ef",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "872a509c5d98d73a",
+        "type": "hamlib-server",
+        "name": "Localhost",
+        "host": "localhost",
+        "port": "4532"
+    },
+    {
+        "id": "2f9828e9227876ef",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
