@@ -1,15 +1,18 @@
 <script type="text/javascript">
-    RED.nodes.registerType('hamlib-server', {
+    RED.nodes.registerType('rigctl-server', {
         category: 'config',
         defaults: {
             name: { value: '' },
             host: { value: 'localhost', required: true },
             port: { value: 4532, required: true }
+        },
+        label: function() {
+            return this.name || 'rigctl-server';
         }
     });
 </script>
 
-<script type="text/html" data-template-name="hamlib-server">
+<script type="text/html" data-template-name="rigctl-server">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag">
             </i> Name</label>

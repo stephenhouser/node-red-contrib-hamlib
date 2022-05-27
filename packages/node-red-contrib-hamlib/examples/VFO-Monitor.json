@@ -246,7 +246,7 @@
     },
     {
         "id": "ce9cd72bff9ad1c2",
-        "type": "hamlib-request",
+        "type": "rigctl",
         "z": "34356dd01a8ffa71",
         "name": "",
         "server": "872a509c5d98d73a",
@@ -289,7 +289,7 @@
     },
     {
         "id": "872a509c5d98d73a",
-        "type": "hamlib-server",
+        "type": "rigctl-server",
         "name": "Localhost",
         "host": "localhost",
         "port": "4532"

@@ -20,8 +20,8 @@
 	},
 	"node-red": {
 		"nodes": {
-			"hamlib-request": "hamlib-request.js",
-			"hamlib-server": "hamlib-server.js"
+			"rigctl": "rigctl.js",
+			"rigctl-server": "rigctl-server.js"
 		}
 	}
 }

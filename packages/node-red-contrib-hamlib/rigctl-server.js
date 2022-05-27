@@ -1,4 +1,4 @@
-/* hamlib-server.js - NodeRed configuration node for HamLib nodes
+/* rigctl-server.js - NodeRed configuration node for HamLib nodes
  *
  * 2022/05/26 Stephen Houser, MIT License
  */
@@ -10,7 +10,7 @@ let node_id = 1;
 module.exports = function(RED) {
 	'use strict';
 
-	function HamlibServerNode(config) {
+	function RigcltServerNode(config) {
 		RED.nodes.createNode(this, config);
 		const node = this;
 
@@ -23,7 +23,7 @@ module.exports = function(RED) {
 		node.connectionState = 'disconnected';
 		node.timeoutSeconds = config.timeout || 15;
 
-		// queue of requests to Hamlib server process, [{request, callback}, ...]
+		// queue of requests to rigctl server process, [{request, callback}, ...]
 		node.requests = [];
 
 		// Allows any number of listeners to attach. Default is 10
@@ -124,5 +124,5 @@ module.exports = function(RED) {
 		node.connect();
 	}
 
-	RED.nodes.registerType('hamlib-server', HamlibServerNode);
+	RED.nodes.registerType('rigctl-server', RigcltServerNode);
 };

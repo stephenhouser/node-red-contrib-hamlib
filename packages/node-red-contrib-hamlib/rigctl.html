@@ -1,24 +1,24 @@
 <script type="text/javascript">
-    RED.nodes.registerType('hamlib-request', {
+    RED.nodes.registerType('rigctl', {
         category: 'hamlib',
         color: '#06bcd8',
         defaults: {
             name: { value: '' },
-            server: { value: '', type: 'hamlib-server', required: true },
+            server: { value: '', type: 'rigctl-server', required: true },
         },
         inputs: 1,
         outputs: 1,
-        icon: 'inject.svg',
+        icon: 'cell-tower.svg',
         label: function() {
-            return this.name || 'hamlib-request';
+            return this.name || 'rigctl';
         }
     });
 </script>
 
-<script type="text/html" data-template-name="hamlib-request">
+<script type="text/html" data-template-name="rigctl">
     <div class="form-row">
-        <label for="node-input-server"><i class="fa fa-globe"></i> Hamlib Server</label>
-        <input type="text" id="node-input-server" placeholder="localhost">
+        <label for="node-input-server"><i class="fa fa-globe"></i> rigctl server</label>
+        <input type="text" id="node-input-server" placeholder="rigctld">
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
