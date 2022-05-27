@@ -42,7 +42,12 @@ module.exports = function(RED) {
 
 				node.connection.on('data', function(data) {
 					// split on newline and remove empty elements
-					const response = data.split('\n').filter(function (x) { return x != ""; });
+					let response = data.split('\n').filter(function (x) { return x != ""; });
+
+					// if only a single element, don't put it in an array
+					if (response.length == 1) {
+						response = response[0]
+					}
 
 					node.trace(`[${node.node_id}].on('data')`);
 					node.debug(`RECV: ${response}`);
