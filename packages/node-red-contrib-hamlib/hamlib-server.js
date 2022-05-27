@@ -3,8 +3,6 @@
  * 2022/05/26 Stephen Houser, MIT License
  */
 const net = require('net');
-const log_info = function(msg) { console.log(msg); };
-const log_debug = function(msg) { console.log(msg); };
 
 // Unique ID for use in debugging connections, events, etc.
 let node_id = 1;
@@ -19,7 +17,7 @@ module.exports = function(RED) {
 		// Assign this object a unique ID that will show in debug messages
 		// Makes for easy assocaition of events, etc..
 		node.node_id = node_id++;
-		log_debug(`hamlib-server[${node.node_id}].create()`);
+		node.trace(`[${node.node_id}].create()`);
 
 		node.name = config.name;
 		node.connectionState = 'disconnected';
@@ -34,24 +32,27 @@ module.exports = function(RED) {
 		node.setMaxListeners(0);
 
 		node.connect = function() {
-			log_debug(`hamlib-server[${node.node_id}].connect(${config.host}, ${config.port})`);
+			node.trace(`[${node.node_id}].connect(${config.host}, ${config.port})`);
 			node.connectionState = 'connecting';
 			node.connection = net.connect(config.port, config.host, function() {
-				log_info(`hamlib-server[${node.node_id}].connection.on('connect')`);
+				node.log(`[${node.node_id}].connection.on('connect')`);
 				node.connection.setEncoding('utf8');
 
 				node.connectionState = 'connected';
 
 				node.connection.on('data', function(data) {
-					log_debug(`hamlib-server[${node.node_id}].on('data')`);
-					console.log(`RECV< ${data}`);
+					// split on newline and remove empty elements
+					const response = data.split('\n').filter(function (x) { return x != ""; });
+
+					node.trace(`[${node.node_id}].on('data')`);
+					node.debug(`RECV: ${response}`);
 
 					// resolve current request and send next one if in queue
 					const request = node.requests.shift();
 					if (request && request.callback) {
 						request.callback({
 							request: request.request,
-							payload: data 
+							payload: response 
 						});
 					}
 
@@ -62,22 +63,22 @@ module.exports = function(RED) {
 					// Called when there is an error on the channel
 					// MUST be handled by a listener somewhere or will
 					// CRASH the program with an unhandled exception.
-					console.error(`hamlib-server[${node.node_id}].connection.on('error')`);
+					node.warn(`[${node.node_id}].connection.on('error')`);
 				});
 	
 				node.connection.on('close', function() {
-					log_info(`hamlib-server[${node.node_id}].connection.on('close')`);
+					node.trace(`[${node.node_id}].connection.on('close')`);
 					node.connectionState = 'disconnected'
 				});
 			});
 		};
 
 		node.sendQueued = function() {
-			log_debug(`hamlib-server[${node.node_id}].sendQueued(${JSON.stringify(node.requests)})`);
+			node.trace(`[${node.node_id}].sendQueued(${JSON.stringify(node.requests)})`);
 			if (node.requests.length) {
 				const request = node.requests[0];
 				if (request && request.request && !request.sent) {
-					console.log(`SEND> ${request.request}`);
+					node.debug(`SEND: ${request.request}`);
 					node.connection.write(request.request + '\n');
 					request.sent = true;
 				}
@@ -91,7 +92,7 @@ module.exports = function(RED) {
 		};
 
 		node.on('close', function(done) {
-			log_debug(`hamlib-server[${node.node_id}].on.close()`);
+			node.trace(`[${node.node_id}].on.close()`);
 			node.disconnect();
 			done();
 		});
@@ -101,11 +102,10 @@ module.exports = function(RED) {
 				return false;
 			}
 
-			log_debug(`hamlib-server[${node.node_id}].send(${msg.payload})`);
+			node.trace(`[${node.node_id}].send(${msg.payload})`);
 			const requests = Array.isArray(msg.payload) ? msg.payload : [msg.payload];
 			while (requests.length) {
 				const request = requests.shift();
-				log_debug(`Queue "${request}" from msg.id=${msg.id}`);
 				node.requests.push({
 						request: request, 
 						callback: response_handler
